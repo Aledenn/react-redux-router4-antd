@@ -1,45 +1,39 @@
 import React from "react";
 import ReactDom from "react-dom";
-import App from "./App";
 import { createStore, applyMiddleware, compose } from "redux";
-import { counter } from "./index.redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
-import { BrowserRouter, Route, Link, Redirect, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import Auth from "./Auth";
 import Dashboard from "./Dashboard";
+import reducers from "./reducer";
+
 const store = createStore(
-  counter,
+  reducers,
   compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : () => {}
   )
 );
 
-function Erying() {
-  return <h2>二营</h2>;
-}
+// console.log(store.getState());
 
-function Qibinglian() {
-  return <h2>骑兵连</h2>;
-}
-
-class Test extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    console.log(this.props);
-    // 可实现页面跳转
-    // this.props.history.push('/')
-    return (
-      <h2>
-        测试组件
-        {this.props.location.pathname}
-      </h2>
-    );
-  }
-}
+// class Test extends React.Component {
+//   constructor(props) {
+//     super(props);
+//   }
+//   render() {
+//     console.log(this.props);
+//     // 可实现页面跳转
+//     // this.props.history.push('/')
+//     return (
+//       <h2>
+//         测试组件
+//         {this.props.location.pathname}
+//       </h2>
+//     );
+//   }
+// }
 
 // provider组件在应用最外层。传入store即可。只用一次
 
