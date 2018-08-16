@@ -22,7 +22,7 @@ export function addGun() {
 
 
 export function removeGun() {
-    return {type:REMOVE_GUN}
+  return { type: REMOVE_GUN };
 }
 
 export function addGunAsync(){
