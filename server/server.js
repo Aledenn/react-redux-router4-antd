@@ -51,18 +51,18 @@ app.get("/data", (req, res) => {
   // res.json({ name: "imooc", type: "IT" });
 });
 
-User.update({ user: "xiaoming" }, { $set: { age: 26 } }, (err, doc) => {
-  console.log(doc);
-});
+// User.update({ user: "xiaoming" }, { $set: { age: 26 } }, (err, doc) => {
+//   console.log(doc);
+// });
 
-User.remove(
-  {
-    age: 18
-  },
-  (err, doc) => {
-    console.log(doc);
-  }
-);
+// User.remove(
+//   {
+//     age: 18
+//   },
+//   (err, doc) => {
+//     console.log(doc);
+//   }
+// );
 
 app.listen(9093, function() {
   console.log("Node app start at port 9093");
