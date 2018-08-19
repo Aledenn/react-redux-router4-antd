@@ -7,7 +7,8 @@ import { BrowserRouter, Route } from "react-router-dom";
 import reducers from "./reducer";
 // import "./config";
 import Login from "./container/login/Login";
-import Register from "./container/login/Register";
+import Register from "./container/register/Register";
+import AuthRoute from "./component/authroute/authroute";
 
 const store = createStore(
   reducers,
@@ -22,6 +23,7 @@ ReactDom.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
+        <AuthRoute />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
       </div>
