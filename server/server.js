@@ -1,15 +1,5 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const userRouter = require("./user");
-
-const DB_URL = "mongodb://localhost:27017/imooc";
-mongoose.connect(
-  DB_URL,
-  { useNewUrlParser: true }
-);
-mongoose.connection.on("connected", () => {
-  console.log("mongo connect success");
-});
 
 const app = express();
 
