@@ -13,10 +13,10 @@ app.listen(9093, function() {
 });
 
 // 类似于mysql的表  mango里有文档、字段的概念
-const User = mongoose.model(
-  "user",
-  new mongoose.Schema({
-    user: { type: String, require: true },
-    age: { type: Number, require: true }
-  })
-);
+// const User = mongoose.model(
+//   "user",
+//   new mongoose.Schema({
+//     user: { type: String, require: true },
+//     age: { type: Number, require: true }
+//   })
+// );
