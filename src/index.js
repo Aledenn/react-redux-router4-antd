@@ -9,6 +9,8 @@ import "./config";
 import Login from "./container/login/Login";
 import Register from "./container/register/Register";
 import AuthRoute from "./component/authroute/authroute";
+import BossInfo from "./container/bossinfo/Bossinfo";
+import GeniusInfo from "./container/genius/Geniusinfo";
 import "./index.css";
 
 const store = createStore(
@@ -19,17 +21,15 @@ const store = createStore(
   )
 );
 
-function Boss() {
-  return <h2>BOss</h2>;
-}
-
 ReactDom.render(
   // Provider包裹最外层
   <Provider store={store}>
     <BrowserRouter>
       <div>
         <AuthRoute />
-        <Route path="/boss" component={Boss} />
+
+        <Route path="/bossinfo" component={BossInfo} />
+        <Route path="/geniusinfo" component={GeniusInfo} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
       </div>

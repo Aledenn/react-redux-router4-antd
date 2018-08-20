@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import Axios from "axios";
 // 让我们的AuthRoute有
 import { withRouter } from "react-router-dom";
+import {loadData} from '../../redux/user.redux'
+import {connect} from 'react-redux'
 
+@connect(null,{loadData})
 @withRouter
 export default class AuthRoute extends Component {
   componentDidMount() {
-    const publicList = ["/login", "register"];
+    const publicList = ["/login", "/register"];
     const pathname = this.props.location.pathname;
     if (publicList.indexOf(pathname) > -1) {
       return null;
@@ -16,7 +19,10 @@ export default class AuthRoute extends Component {
       if (res.status === 200) {
         console.log(res);
         if (res.data.code === 0) {
+          this.props.loadData(res.data.data);
         } else {
+          console.log(res.data.data);
+        
           this.props.history.push("/login");
         }
       }
