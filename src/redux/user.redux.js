@@ -1,14 +1,15 @@
 import Axios from "axios";
 import { getRedirectPath } from "../util";
 
-const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+// const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+// const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 const ERROR_MSG = "ERROR_MSG";
 const LOAD_DATA = "LOAD_DATA";
+const AUTH_SUCCESS = "AUTH_SUCCESS";
 
 const initState = {
   redirectTo: "",
-  isAuth: false,
+  // isAuth: false,
   msg: "",
   user: "",
   type: ""
@@ -52,20 +53,17 @@ function loginSuccess(data) {
   return { type: LOGIN_SUCCESS, payload: data };
 }
 
-// export function userinfo() {
-//   return dispatch => {
-//     Axios.get("/user/info").then(res => {
-//       if (res.status === 200) {
-//         if (res.data.code === 0) {
-
-//         } else {
-//           // this.props.loadData(res.data.data)
-//           this.props.history.push("/login");
-//         }
-//       }
-//     });
-//   };
-// }
+export function update(data) {
+  return dispatch => {
+    Axios.post("/user/update", data).then(res => {
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch(loginSuccess(res.data.data));
+      } else {
+        dispatch(errorMsg(res.data.msg));
+      }
+    });
+  };
+}
 
 export function loadData(userinfo) {
   return { type: LOAD_DATA, payload: userinfo };
