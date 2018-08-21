@@ -16,20 +16,11 @@ const initState = {
 };
 export function user(state = initState, action) {
   switch (action.type) {
-    case REGISTER_SUCCESS:
+    case AUTH_SUCCESS:
       return {
         ...state,
         msg: "",
         redirectTo: getRedirectPath(action.payload),
-        isAuth: true,
-        ...action.payload
-      };
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        msg: "",
-        redirectTo: getRedirectPath(action.payload),
-        isAuth: true,
         ...action.payload
       };
     case LOAD_DATA:
@@ -40,24 +31,21 @@ export function user(state = initState, action) {
       return state;
   }
 }
-// 注册成功
-function registerSuccess(data) {
-  return { type: REGISTER_SUCCESS, payload: data };
+
+function authSuccess(data) {
+  console.log(data);
+  return { type: AUTH_SUCCESS, payload: data };
 }
 
 function errorMsg(msg) {
   return { msg, type: ERROR_MSG };
 }
 
-function loginSuccess(data) {
-  return { type: LOGIN_SUCCESS, payload: data };
-}
-
 export function update(data) {
   return dispatch => {
     Axios.post("/user/update", data).then(res => {
       if (res.status === 200 && res.data.code === 0) {
-        dispatch(loginSuccess(res.data.data));
+        dispatch(authSuccess(res.data.data));
       } else {
         dispatch(errorMsg(res.data.msg));
       }
@@ -76,7 +64,7 @@ export function login({ user, pwd }) {
   return dispatch => {
     Axios.post("/user/login", { user, pwd }).then(res => {
       if (res.status === 200 && res.data.code === 0) {
-        dispatch(loginSuccess(res.data.data));
+        dispatch(authSuccess(res.data.data));
       } else {
         dispatch(errorMsg(res.data.msg));
       }
@@ -96,7 +84,7 @@ export function register({ user, pwd, repeatPWD, type }) {
   return dispatch => {
     Axios.post("/user/register", { user, pwd, type }).then(res => {
       if (res.status === 200 && res.data.code === 0) {
-        dispatch(registerSuccess({ user, pwd, repeatPWD }));
+        dispatch(authSuccess({ user, pwd, type }));
       } else {
         dispatch(errorMsg(res.data.msg));
       }

@@ -13,6 +13,25 @@ Router.get("/list", (req, res) => {
   });
 });
 
+Router.post("/update", (req, res) => {
+  const userId = req.cookies.userId;
+  if (!userId) {
+    return json.dumps({ code: 1 });
+  }
+  const body = req.body;
+  User.findByIdAndUpdate(userId, body, (err, doc) => {
+    const data = Object.assign(
+      {},
+      {
+        user: doc.user,
+        type: doc.type
+      },
+      body
+    );
+    return res.json({ code: 0, data });
+  });
+});
+
 Router.post("/login", (req, res) => {
   const { user, pwd, type } = req.body;
   User.findOne({ user, pwd: md5Pwd(pwd) }, (err, doc) => {
