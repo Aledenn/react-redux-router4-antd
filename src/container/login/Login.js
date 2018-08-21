@@ -5,10 +5,7 @@ import { login } from "../../redux/user.redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-@connect(
-  state => state.user,
-  { login }
-)
+@connect(state => state.user, { login })
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -41,9 +38,11 @@ export default class Login extends Component {
         <h2>登录页</h2>
         <WingBlank>
           <List>
-            {this.props.msg ? (
-              <p className="error-msg">{this.props.msg}</p>
-            ) : null}
+            {this.props.msg
+              ? <p className="error-msg">
+                  {this.props.msg}
+                </p>
+              : null}
             <InputItem onChange={v => this.handleChange("user", v)}>
               用户
             </InputItem>
