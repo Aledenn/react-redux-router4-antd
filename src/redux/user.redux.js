@@ -33,8 +33,8 @@ export function user(state = initState, action) {
 }
 
 function authSuccess(data) {
-  console.log(data);
-  return { type: AUTH_SUCCESS, payload: data };
+  const { pwd, ...wpData } = data;
+  return { type: AUTH_SUCCESS, payload: wpData };
 }
 
 function errorMsg(msg) {

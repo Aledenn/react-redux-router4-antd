@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import Axios from "axios";
 // 让我们的AuthRoute有
 import { withRouter } from "react-router-dom";
-import {loadData} from '../../redux/user.redux'
-import {connect} from 'react-redux'
+import { loadData } from "../../redux/user.redux";
+import { connect } from "react-redux";
 
-@connect(null,{loadData})
+@connect(null, { loadData })
 @withRouter
 export default class AuthRoute extends Component {
   componentDidMount() {
@@ -22,7 +22,6 @@ export default class AuthRoute extends Component {
           this.props.loadData(res.data.data);
         } else {
           console.log(res.data.data);
-        
           this.props.history.push("/login");
         }
       }
