@@ -64,6 +64,7 @@ Router.post("/register", (req, res) => {
 
 Router.get("/info", (req, res) => {
   // 用户没有cookie
+  console.log(req);
   const { userId } = req.cookies;
   if (!userId) {
     return res.json({ code: 1 });

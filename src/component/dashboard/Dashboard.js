@@ -4,14 +4,8 @@ import { NavBar } from "antd-mobile";
 import NavLinkBar from "../navlink/NavLinkBar";
 import { Switch, Route } from "react-router-dom";
 import Boss from "../boss/Boss";
-
-function Genius() {
-  return <h2>牛人首页</h2>;
-}
-
-function User() {
-  return <h2>User列表</h2>;
-}
+import Genius from "../genius/Genius";
+import User from "../user/User";
 
 function Msg() {
   return <h2>Msg</h2>;
@@ -33,7 +27,7 @@ export default class Dashboard extends Component {
         icon: "boss",
         title: "牛人列表",
         component: Boss,
-        hide: user.type == "genius"
+        hide: user.type === "genius"
       },
       {
         path: "/genius",
@@ -41,7 +35,7 @@ export default class Dashboard extends Component {
         icon: "genius",
         title: "BOSS列表",
         component: Genius,
-        hide: user.type == "boss"
+        hide: user.type === "boss"
       },
       {
         path: "/msg",
@@ -62,7 +56,7 @@ export default class Dashboard extends Component {
     return (
       <div>
         <NavBar className="fixd-header" mode="dard">
-          {navList.find(v => v.path == pathname).title}
+          {navList.find(v => v.path === pathname).title}
         </NavBar>
         <div style={{ marginTop: 45 }}>
           <Switch>
