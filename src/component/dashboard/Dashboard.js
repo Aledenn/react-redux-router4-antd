@@ -66,9 +66,6 @@ export default class Dashboard extends Component {
           </Switch>
         </div>
         <NavLinkBar data={navList}> </NavLinkBar>
-        {/* <Route path="/boss" component={Boss} />
-        <Route path="/genius" component={Genius} /> */}
-        <h2>footer</h2>
       </div>
     );
   }

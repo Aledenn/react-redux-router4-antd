@@ -12,15 +12,10 @@ import AuthRoute from "./component/authroute/authroute";
 import BossInfo from "./container/bossinfo/Bossinfo";
 import GeniusInfo from "./container/genius/Geniusinfo";
 import Dashboard from "./component/dashboard/Dashboard";
+import Test from "./component/test/Test";
 import "./index.css";
 
-const store = createStore(
-  reducers,
-  compose(
-    applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension() : () => {}
-  )
-);
+const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
 // boss genius me msg 4个页面
 ReactDom.render(
@@ -28,6 +23,7 @@ ReactDom.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
+        {/* <Route path="/test" component={Test} /> */}
         <AuthRoute />
         <Switch>
           <Route path="/bossinfo" component={BossInfo} />
