@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Result, List, WhiteSpace } from "antd-mobile";
-
+import { Result, List, WhiteSpace, Modal } from "antd-mobile";
+import cookies from "browser-cookies";
+import { logoutSubmit } from "../../redux/user.redux";
+import { Redirect } from "react-router-dom";
 const Item = List.Item;
 const Brief = Item.Brief;
-@connect(state => state.user)
+const alert = Modal.alert;
+@connect(state => state.user, {
+  logoutSubmit
+})
 export default class User extends Component {
   constructor(props) {
     super(props);
@@ -12,10 +17,23 @@ export default class User extends Component {
   }
   mlogout() {
     console.log("love");
+    alert("注销", "确认退出???", [
+      { text: "取消", onPress: () => console.log("cancel") },
+      {
+        text: "确认",
+        onPress: () => {
+          cookies.erase("userId");
+          // 刷新界面
+          // window.location.href = window.location.href;
+          this.props.logoutSubmit();
+        }
+      }
+    ]);
   }
 
   render() {
     const myProps = this.props;
+
     console.log(myProps);
     return myProps.user
       ? <div>
@@ -50,6 +68,6 @@ export default class User extends Component {
             <Item onClick={this.mlogout}>退出登录</Item>
           </List>
         </div>
-      : null;
+      : <Redirect to={myProps.redirectTo} />;
   }
 }

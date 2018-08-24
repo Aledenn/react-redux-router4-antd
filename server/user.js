@@ -14,6 +14,28 @@ Router.get("/list", (req, res) => {
   });
 });
 
+Router.get("/list2", (req, res) => {
+  // 删除原来的
+  // User.remove({}, function(e, d) {});
+
+  User.find({}, (err, doc) => {
+    return res.json({ code: 0, data: doc });
+  });
+});
+
+Router.get("/delete/:id", (req, res) => {
+  // user="..."
+  // const id = `user=${req.params.id}`;
+  const user = req.params.id;
+  console.log(user);
+  // const type = "boss";
+  // {type}=>{type:"boss"}
+  // console.log(id, typeof id);
+  User.remove({ user }, (err, doc) => {
+    return res.json({ code: 0, data: doc });
+  });
+});
+
 Router.post("/update", (req, res) => {
   const userId = req.cookies.userId;
   if (!userId) {
@@ -64,7 +86,6 @@ Router.post("/register", (req, res) => {
 
 Router.get("/info", (req, res) => {
   // 用户没有cookie
-  console.log(req);
   const { userId } = req.cookies;
   if (!userId) {
     return res.json({ code: 1 });
