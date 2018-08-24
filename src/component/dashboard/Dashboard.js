@@ -6,6 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import Boss from "../boss/Boss";
 import Genius from "../genius/Genius";
 import User from "../user/User";
+// import Test from "../test/Test";
 
 function Msg() {
   return <h2>Msg</h2>;
@@ -14,12 +15,8 @@ function Msg() {
 @connect(state => state)
 export default class Dashboard extends Component {
   render() {
-    // console.log(user);
-    // console.log(this.props);
     const user = this.props.user;
-
     const { pathname } = this.props.location;
-
     const navList = [
       {
         path: "/boss",
@@ -54,19 +51,17 @@ export default class Dashboard extends Component {
     ];
 
     return (
-      <div>
-        <NavBar className="fixd-header" mode="dard">
+      <React.Fragment>
+        <NavBar mode="dard">
           {navList.find(v => v.path === pathname).title}
         </NavBar>
-        <div style={{ marginTop: 45 }}>
-          <Switch>
-            {navList.map(v =>
-              <Route key={v.path} path={v.path} component={v.component} />
-            )}
-          </Switch>
-        </div>
+        <Switch style={{ marginTop: 45 }}>
+          {navList.map(v =>
+            <Route key={v.path} path={v.path} component={v.component} />
+          )}
+        </Switch>
         <NavLinkBar data={navList}> </NavLinkBar>
-      </div>
+      </React.Fragment>
     );
   }
 }

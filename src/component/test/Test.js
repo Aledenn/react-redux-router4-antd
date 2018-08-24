@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import { Result, List, WhiteSpace } from "antd-mobile";
 
-const Item = List.Item;
-const Brief = Item.Brief;
-
 export default class Test extends Component {
+  constructor(props) {
+    super(props);
+    this.mlogout = this.mlogout.bind(this);
+  }
+
   mlogout() {
-    console.log("love hww");
+    console.log("love");
   }
 
   render() {
+    const Item = List.Item;
     return (
       <div>
         <List>

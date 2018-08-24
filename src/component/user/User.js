@@ -6,13 +6,16 @@ const Item = List.Item;
 const Brief = Item.Brief;
 @connect(state => state.user)
 export default class User extends Component {
+  constructor(props) {
+    super(props);
+    this.mlogout = this.mlogout.bind(this);
+  }
   mlogout() {
-    console.log("love wwww");
+    console.log("love");
   }
 
   render() {
     const myProps = this.props;
-
     console.log(myProps);
     return myProps.user
       ? <div>
@@ -28,7 +31,7 @@ export default class User extends Component {
             message={myProps.type === "boss" ? myProps.company : null}
           />
           <List renderHeader={() => "简介"}>
-            <Item>
+            <Item multipleLine>
               {myProps.title}
               {myProps.desc.split("\n").map(v =>
                 <Brief key={v}>

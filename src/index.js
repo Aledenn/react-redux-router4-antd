@@ -26,6 +26,7 @@ ReactDom.render(
         {/* <Route path="/test" component={Test} /> */}
         <AuthRoute />
         <Switch>
+          <Route path="/test" component={Test} />
           <Route path="/bossinfo" component={BossInfo} />
           <Route path="/geniusinfo" component={GeniusInfo} />
           <Route path="/login" component={Login} />
