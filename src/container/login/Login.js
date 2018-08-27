@@ -4,26 +4,29 @@ import { List, InputItem, WingBlank, WhiteSpace, Button } from "antd-mobile";
 import { login } from "../../redux/user.redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import lcbForm from "../../component/lcb-form/lcb-form";
 
+// 高阶组件lcbForm
 @connect(state => state.user, { login })
+@lcbForm
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user: "",
-      pwd: ""
-    };
+    // this.state = {
+    //   user: "",
+    //   pwd: ""
+    // };
     this.register = this.register.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleChange(key, val) {
-    this.setState({
-      [key]: val
-    });
-  }
+  // handleChange(key, val) {
+  //   this.setState({
+  //     [key]: val
+  //   });
+  // }
   handleLogin() {
-    this.props.login(this.state);
+    this.props.login(this.props.state);
   }
 
   register() {
@@ -45,12 +48,12 @@ export default class Login extends Component {
                   {this.props.msg}
                 </p>
               : null}
-            <InputItem onChange={v => this.handleChange("user", v)}>
+            <InputItem onChange={v => this.props.handleChange("user", v)}>
               用户
             </InputItem>
             <WhiteSpace />
             <InputItem
-              onChange={v => this.handleChange("pwd", v)}
+              onChange={v => this.props.handleChange("pwd", v)}
               type="password"
             >
               密码

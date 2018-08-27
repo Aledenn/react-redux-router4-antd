@@ -4,33 +4,35 @@ import { List, InputItem, Radio, WhiteSpace, Button } from "antd-mobile";
 import { connect } from "react-redux";
 import { register } from "../../redux/user.redux";
 import { Redirect } from "react-router-dom";
+import lcbForm from "../../component/lcb-form/lcb-form";
 
-@connect(
-  state => state.user,
-  { register }
-)
+@connect(state => state.user, { register })
+@lcbForm
 export default class Register extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user: "",
-      pwd: "",
-      repeatPWD: "",
-      type: "genius" //或者boss
-    };
+    // this.state = {
+    //   user: "",
+    //   pwd: "",
+    //   repeatPWD: "",
+    //   type: "genius" //或者boss
+    // };
 
     this.handleRegister = this.handleRegister.bind(this);
   }
-
-  handleChange(key, val) {
-    this.setState({
-      [key]: val
-    });
+  componentDidMount() {
+    this.props.handleChange("type", "genius");
   }
 
+  // handleChange(key, val) {
+  //   this.setState({
+  //     [key]: val
+  //   });
+  // }
+
   handleRegister() {
-    this.props.register(this.state);
-    console.log(this.state);
+    this.props.register(this.props.state);
+    console.log(this.props.state);
   }
   render() {
     const RadioItem = Radio.RadioItem;
@@ -39,36 +41,38 @@ export default class Register extends Component {
         {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
         <Logo />
         <List>
-          {this.props.msg ? (
-            <p className="error-msg">{this.props.msg}</p>
-          ) : null}
-          <InputItem onChange={v => this.handleChange("user", v)}>
+          {this.props.msg
+            ? <p className="error-msg">
+                {this.props.msg}
+              </p>
+            : null}
+          <InputItem onChange={v => this.props.handleChange("user", v)}>
             用户名
           </InputItem>
           <WhiteSpace />
           <InputItem
             type="password"
-            onChange={v => this.handleChange("pwd", v)}
+            onChange={v => this.props.handleChange("pwd", v)}
           >
             密码
           </InputItem>
           <WhiteSpace />
           <InputItem
             type="password"
-            onChange={v => this.handleChange("repeatPWD", v)}
+            onChange={v => this.props.handleChange("repeatPWD", v)}
           >
             确认密码
           </InputItem>
           <WhiteSpace />
           <RadioItem
-            checked={this.state.type === "genius"}
-            onChange={() => this.handleChange("type", "genius")}
+            checked={this.props.state.type === "genius"}
+            onChange={() => this.props.handleChange("type", "genius")}
           >
             牛人
           </RadioItem>
           <RadioItem
-            onChange={() => this.handleChange("type", "boss")}
-            checked={this.state.type === "boss"}
+            onChange={() => this.props.handleChange("type", "boss")}
+            checked={this.props.state.type === "boss"}
           >
             BOSS
           </RadioItem>
