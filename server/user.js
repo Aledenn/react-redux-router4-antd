@@ -6,6 +6,8 @@ const User = model.getModel("user");
 const Chat = model.getModel("chat");
 const _filter = { pwd: 0, __v: 0 };
 
+Chat.remove({}, (e, d) => {});
+
 Router.get("/list", (req, res) => {
   // 删除原来的
   // User.remove({}, function(e, d) {});
