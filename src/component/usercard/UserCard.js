@@ -9,7 +9,7 @@ export default class UserCard extends Component {
     userlist: PropTypes.array.isRequired
   };
   handleClick(v) {
-    this.props.history.push(`/chat/${v.user}`);
+    this.props.history.push(`/chat/${v._id}`);
   }
   render() {
     return (

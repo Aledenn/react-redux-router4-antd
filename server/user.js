@@ -3,6 +3,7 @@ const Router = express.Router();
 const model = require("./model");
 const utils = require("utility");
 const User = model.getModel("user");
+const Chat = model.getModel("chat");
 const _filter = { pwd: 0, __v: 0 };
 
 Router.get("/list", (req, res) => {
@@ -14,11 +15,20 @@ Router.get("/list", (req, res) => {
   });
 });
 
+Router.get("/getmsglist", (req, res) => {
+  const user = req.cookies.userId;
+  Chat.find({}, (err, doc) => {
+    if (!err) {
+      return res.json({ code: 0, msgs: doc });
+    }
+  });
+});
+
 Router.get("/list2", (req, res) => {
   // 删除原来的
   // User.remove({}, function(e, d) {});
 
-  User.find({}, (err, doc) => {
+  Chat.find({}, (err, doc) => {
     return res.json({ code: 0, data: doc });
   });
 });

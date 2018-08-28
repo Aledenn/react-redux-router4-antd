@@ -15,7 +15,13 @@ import Dashboard from "./component/dashboard/Dashboard";
 import Test from "./component/test/Test";
 import "./index.css";
 import Chat from "./component/chat/Chat";
-const store = createStore(reducers, compose(applyMiddleware(thunk)));
+const store = createStore(
+  reducers,
+  compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f //调试用
+  )
+);
 
 // boss genius me msg 4个页面
 ReactDom.render(
