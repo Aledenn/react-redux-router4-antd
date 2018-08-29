@@ -7,11 +7,8 @@ import Boss from "../boss/Boss";
 import Genius from "../genius/Genius";
 import User from "../user/User";
 import { getMsgList, sendMsg, recvMsg } from "../../redux/chat.redux";
+import Msg from "../msg/Msg";
 // import Test from "../test/Test";
-
-function Msg() {
-  return <h2>Msg</h2>;
-}
 
 @connect(state => state, { getMsgList, recvMsg })
 export default class Dashboard extends Component {
