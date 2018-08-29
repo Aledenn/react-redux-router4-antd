@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { TabBar } from "antd-mobile";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 // const Item = TabBar.Item;
 // 不是路由组件要加withRouter, 从react-router-dom中获得
 @withRouter
-export default class NavLinkBar extends Component {
+@connect(state => state.chat)
+class NavLinkBar extends Component {
   render() {
     const navList = this.props.data.filter(v => !v.hide);
     const { pathname } = this.props.location;
@@ -15,6 +16,7 @@ export default class NavLinkBar extends Component {
         <TabBar>
           {navList.map(v =>
             <TabBar.Item
+              badge={v.path === "/msg" ? this.props.unread : 0}
               key={v.path}
               title={v.text}
               icon={{ uri: require(`../img/${v.icon}.png`) }}
@@ -30,3 +32,5 @@ export default class NavLinkBar extends Component {
     );
   }
 }
+
+export default NavLinkBar;

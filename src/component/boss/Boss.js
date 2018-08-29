@@ -8,7 +8,6 @@ export default class Boss extends Component {
     this.props.getUserList("genius");
   }
   render() {
-    console.log(this.props.userlist);
     // const card = this.props.userlist.filter(v => v.avatar);
     return <UserCard userlist={this.props.userlist} />;
   }

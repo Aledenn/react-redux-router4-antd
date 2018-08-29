@@ -10,15 +10,13 @@ const server = require("http").Server(app);
 // socket.io
 const io = require("socket.io")(server);
 
-io.on("connection", socket => {
-  console.log("user login");
-  socket.on("sendmsg", data => {
+io.on("connection", function(socket) {
+  // console.log("user login");
+  socket.on("sendmsg", function(data) {
     const { from, to, msg } = data;
-    console.log(from, to);
     const chatid = [from, to].sort().join("_");
-    console.log([from, to].sort());
-    console.log(chatid);
     Chat.create({ chatid, from, to, content: msg }, (err, doc) => {
+      console.log(doc._doc);
       console.log(doc);
       io.emit("recvmsg", Object.assign({}, doc._doc));
     });

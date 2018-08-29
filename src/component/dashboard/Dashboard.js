@@ -6,14 +6,21 @@ import { Switch, Route } from "react-router-dom";
 import Boss from "../boss/Boss";
 import Genius from "../genius/Genius";
 import User from "../user/User";
+import { getMsgList, sendMsg, recvMsg } from "../../redux/chat.redux";
 // import Test from "../test/Test";
 
 function Msg() {
   return <h2>Msg</h2>;
 }
 
-@connect(state => state)
+@connect(state => state, { getMsgList, recvMsg })
 export default class Dashboard extends Component {
+  componentDidMount() {
+    if (!this.props.chat.chatmsg.length) {
+      this.props.getMsgList();
+      this.props.recvMsg();
+    }
+  }
   render() {
     const user = this.props.user;
     const { pathname } = this.props.location;

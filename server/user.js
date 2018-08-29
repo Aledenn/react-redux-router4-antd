@@ -6,7 +6,7 @@ const User = model.getModel("user");
 const Chat = model.getModel("chat");
 const _filter = { pwd: 0, __v: 0 };
 
-// Chat.remove({}, (e, d) => {});
+Chat.remove({}, (e, d) => {});
 
 Router.get("/list", (req, res) => {
   // 删除原来的
@@ -19,10 +19,16 @@ Router.get("/list", (req, res) => {
 
 Router.get("/getmsglist", (req, res) => {
   const user = req.cookies.userId;
-  Chat.find({}, (err, doc) => {
-    if (!err) {
-      return res.json({ code: 0, msgs: doc });
-    }
+  User.find({}, (e, userdoc) => {
+    let users = {};
+    userdoc.forEach(v => {
+      users[v._id] = { name: v.user, avatar: v.avatar };
+    });
+    Chat.find({ $or: [{ from: user }, { to: user }] }, (err, doc) => {
+      if (!err) {
+        return res.json({ code: 0, msgs: doc, users: users });
+      }
+    });
   });
 });
 
