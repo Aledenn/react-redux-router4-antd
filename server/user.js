@@ -6,7 +6,25 @@ const User = model.getModel("user");
 const Chat = model.getModel("chat");
 const _filter = { pwd: 0, __v: 0 };
 
-Chat.remove({}, (e, d) => {});
+// Chat.remove({}, (e, d) => {});
+
+Router.post("/readmsg", (req, res) => {
+  const userId = req.cookies.userId;
+  const { from } = req.body;
+  console.log(userId, from);
+  Chat.update(
+    { from, to: userId },
+    { $set: { read: true } },
+    { multi: true },
+    (err, doc) => {
+      console.log(doc);
+      if (!err) {
+        return res.json({ code: 0, num: doc.nModified });
+      }
+      return res.json({ code: 1, msg: "修改失败" });
+    }
+  );
+});
 
 Router.get("/list", (req, res) => {
   // 删除原来的

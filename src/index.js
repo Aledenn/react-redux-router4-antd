@@ -3,7 +3,7 @@ import ReactDom from "react-dom";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import reducers from "./reducer";
 import "./config";
 import Login from "./container/login/Login";
@@ -15,6 +15,8 @@ import Dashboard from "./component/dashboard/Dashboard";
 import Test from "./component/test/Test";
 import "./index.css";
 import Chat from "./component/chat/Chat";
+import cookies from "browser-cookies";
+
 const store = createStore(
   reducers,
   compose(
@@ -29,7 +31,6 @@ ReactDom.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
-        {/* <Route path="/test" component={Test} /> */}
         <AuthRoute />
         <Switch>
           <Route path="/test" component={Test} />
@@ -38,6 +39,16 @@ ReactDom.render(
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/chat/:user" component={Chat} />
+          <Route
+            exact
+            path="/"
+            render={() => {
+              console.log(cookies.get("userId"));
+              return cookies.get("userId")
+                ? <Redirect to="/msg" />
+                : <Redirect to="/login" />;
+            }}
+          />
           <Route component={Dashboard} />
         </Switch>
       </div>

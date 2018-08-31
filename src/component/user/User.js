@@ -4,11 +4,14 @@ import { Result, List, WhiteSpace, Modal } from "antd-mobile";
 import cookies from "browser-cookies";
 import { logoutSubmit } from "../../redux/user.redux";
 import { Redirect } from "react-router-dom";
+import { clearChat } from "../../redux/chat.redux";
+
 const Item = List.Item;
 const Brief = Item.Brief;
 const alert = Modal.alert;
 @connect(state => state.user, {
-  logoutSubmit
+  logoutSubmit,
+  clearChat
 })
 export default class User extends Component {
   constructor(props) {
@@ -23,6 +26,7 @@ export default class User extends Component {
         text: "确认",
         onPress: () => {
           cookies.erase("userId");
+          this.props.clearChat();
           // 刷新界面
           // window.location.href = window.location.href;
           this.props.logoutSubmit();

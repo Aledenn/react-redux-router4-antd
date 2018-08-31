@@ -17,6 +17,7 @@ export default class Msg extends Component {
       msgGroup[v.chatid] = msgGroup[v.chatid] || [];
       msgGroup[v.chatid].push(v);
     });
+
     // Object.values
     // console.log(Object.values({ name: "imooc", age: 18 })); Output:["imooc", 18]
     const chatList = Object.values(msgGroup).sort((a, b) => {
@@ -24,6 +25,7 @@ export default class Msg extends Component {
       const b_last = this.getLast(b).create_time;
       return b_last - a_last;
     });
+
     return (
       <div>
         {chatList.map(v => {
@@ -31,12 +33,14 @@ export default class Msg extends Component {
           const targetId = v[0].from === userId ? v[0].to : v[0].from;
           const name = userinfo[targetId] ? userinfo[targetId].name : "";
           const avatar = userinfo[targetId] ? userinfo[targetId].avatar : "";
-          const unreadNum = v.filter(v => !v.read && v.to === userId).length;
+          const unreadNum = v.filter(v => !v.read && v.to == userId).length;
           return (
             <List key={lastItem._id}>
               <Item
                 extra={<Badge text={unreadNum} />}
                 thumb={require(`../img/${userinfo[targetId].avatar}.png`)}
+                arrow="horizontal"
+                onClick={() => this.props.history.push(`/chat/${targetId}`)}
               >
                 {lastItem.content}
                 <Brief>
