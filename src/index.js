@@ -22,10 +22,7 @@ function listener() {
   const current = store.getState();
   console.log(`现在有机枪${current}把`);
 }
-
-// 订阅，每次state修改，都会执行listener
 store.subscribe(listener);
-
 // 提交状态改变的申请
 store.dispatch({ type: "加机关枪" });
 store.dispatch({ type: "加机关枪" });
