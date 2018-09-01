@@ -7,6 +7,7 @@ import App from "./App";
 
 // import thunk from "redux-thunk";
 import thunk from "./mythunk";
+import arrayThunk from "./Arraymiddleware";
 import { counter } from "./index.redux";
 // 自己写的组件
 import { createStore, applyMiddleware } from "./myRedux";
@@ -19,7 +20,7 @@ import { createStore, applyMiddleware } from "./myRedux";
 //   )
 // );
 
-const store = createStore(counter, applyMiddleware(thunk));
+const store = createStore(counter, applyMiddleware(thunk, arrayThunk));
 
 ReactDOM.render(
   <Provider store={store}>
